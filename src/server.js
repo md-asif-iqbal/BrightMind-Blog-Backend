@@ -17,24 +17,10 @@ app.use(helmet());
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan('dev'));
 
-// 🔑 Setup CORS
-const allowlist = (process.env.CORS_ORIGIN || '')
-  .split(',')
-  .map(s => s.trim())
-  .filter(Boolean);
-
-console.log('✅ CORS allowlist:', allowlist);
-
 app.use(
   cors({
-    origin: (origin, cb) => {
-      if (!origin) return cb(null, true); // allow server-to-server (e.g. curl, postman)
-      if (allowlist.includes(origin)) return cb(null, true);
-
-      console.warn(`❌ Blocked by CORS: ${origin}`);
-      return cb(new Error(`Not allowed by CORS: ${origin}`));
-    },
-    credentials: true,
+    origin: "*",      
+    credentials: false 
   })
 );
 
@@ -54,7 +40,7 @@ app.get('/', (_req, res) => {
   res.type('text/plain').send('MERN Blog API is running. Try /api/health');
 });
 
-// Global error handler
+// ✅ Global error handler
 app.use((err, _req, res, _next) => {
   console.error('🔥 Error:', err);
   res

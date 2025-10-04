@@ -11,7 +11,6 @@ const CATEGORY_LIST = [
 export async function seedAdminAndCategories() {
   const db = await connectDB();
 
-  // Seed admin
   const adminEmail = process.env.ADMIN_EMAIL;
   const adminPassword = process.env.ADMIN_PASSWORD;
   if (adminEmail && adminPassword) {
@@ -31,7 +30,6 @@ export async function seedAdminAndCategories() {
     }
   }
 
-  // Seed categories
   const categories = db.collection('categories');
   const count = await categories.countDocuments();
   if (count === 0) {

@@ -27,7 +27,6 @@ app.use(
 app.set('trust proxy', 1);
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 500 }));
 
-// ✅ Routes
 app.get('/api/health', (_req, res) =>
   res.json({ ok: true, t: new Date().toISOString() })
 );
@@ -40,7 +39,6 @@ app.get('/', (_req, res) => {
   res.type('text/plain').send('MERN Blog API is running. Try /api/health');
 });
 
-// ✅ Global error handler
 app.use((err, _req, res, _next) => {
   console.error('🔥 Error:', err);
   res

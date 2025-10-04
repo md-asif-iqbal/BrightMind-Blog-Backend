@@ -1,4 +1,3 @@
-// backend/scripts/seedPosts.js
 import 'dotenv/config';
 import { MongoClient, ObjectId, ServerApiVersion } from 'mongodb';
 
@@ -12,7 +11,6 @@ if (!uri) {
 }
 
 const POSTS = [
-  // title, slug, excerpt, bannerUrl, categorySlug, createdAt ISO
   ["Custom Software Development Company In Bangladesh","custom-software-development-company-in-bangladesh","How logistics companies in Bangladesh efficiently track vehicles in real-time across vast areas.","https://picsum.photos/id/1011/1200/540","software-development","2025-08-25T12:00:00Z"],
   ["Mastering Node.js Error Handling Practices (Part-2)","mastering-nodejs-error-handling-practices-part-2","Why handling async errors in Node.js is still one of the trickiest challenges.","https://picsum.photos/id/1015/1200/540","javascript","2025-08-25T12:30:00Z"],
   ["What Is The Software Development Life Cycle (SDLC)?","what-is-software-development-life-cycle-sdlc","SDLC is more than coding. It demands precision and clear requirements.","https://picsum.photos/id/102/1200/540","software-development","2025-08-25T13:00:00Z"],
@@ -71,7 +69,6 @@ async function main() {
     };
   });
 
-  // ensure unique slugs
   const existing = await db.collection('posts').find({ slug: { $in: docs.map(d => d.slug) } }).project({ slug: 1 }).toArray();
   const existingSet = new Set(existing.map(e => e.slug));
   const toInsert = docs.filter(d => !existingSet.has(d.slug));

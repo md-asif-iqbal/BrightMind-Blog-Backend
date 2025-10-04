@@ -13,7 +13,6 @@ router.get('/:postId', async (req, res) => {
     .sort({ createdAt: -1 })
     .toArray();
 
-  // populate users
   const uid = [...new Set(items.map(i => i.author?.toString()))].filter(Boolean).map(id => new ObjectId(id));
   const users = uid.length ? await db.collection('users').find({ _id: { $in: uid } }).toArray() : [];
   const umap = Object.fromEntries(users.map(u => [u._id.toString(), u]));
